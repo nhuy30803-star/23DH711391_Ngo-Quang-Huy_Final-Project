@@ -1,0 +1,500 @@
+/**
+ * Smart Dictionary Pro - Styles v7.0
+ *
+ * Fixed position panel (top-right)
+ * Floating translate button (for multi-word only)
+ * Auto-close on click outside
+ * IPA in Arial font
+ * Smooth transitions & layout shift prevention
+ */
+
+/* ============================================================
+   GLOBAL BOX-SIZING RESET FOR RESULT BOX
+   ============================================================ */
+
+#sd-result-box,
+#sd-result-box *,
+#sd-result-box *::before,
+#sd-result-box *::after {
+  box-sizing: border-box !important;
+}
+
+/* ============================================================
+   FLOATING TRANSLATE BUTTON
+   Only shows for multi-word selections
+   ============================================================ */
+
+.floating-translate-btn {
+  position: fixed !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 14px !important;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 6px !important;
+  box-shadow: 
+    0 4px 12px rgba(37, 99, 235, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  cursor: pointer !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+  animation: sd-btn-fadein 0.2s ease-out !important;
+  transition: all 0.2s ease !important;
+  pointer-events: auto !important;
+  z-index: 2147483647 !important;
+}
+
+@keyframes sd-btn-fadein {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.floating-translate-btn:hover {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+  box-shadow: 
+    0 6px 16px rgba(37, 99, 235, 0.5),
+    0 3px 6px rgba(0, 0, 0, 0.25) !important;
+  transform: translateY(-1px) !important;
+}
+
+.floating-translate-btn:active {
+  transform: translateY(0) scale(0.98) !important;
+  box-shadow: 
+    0 2px 8px rgba(37, 99, 235, 0.3) !important;
+}
+
+.floating-translate-btn svg {
+  width: 14px !important;
+  height: 14px !important;
+  flex-shrink: 0 !important;
+  pointer-events: none !important;
+}
+
+.floating-translate-btn span {
+  pointer-events: none !important;
+}
+
+/* ============================================================
+   RESULT BOX - FIXED POSITION at top-right
+   WITH SMOOTH TRANSITIONS & LAYOUT SHIFT PREVENTION
+   ============================================================ */
+
+#sd-result-box {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 420px !important;
+  min-width: 320px !important;
+  min-height: 180px !important;
+  max-width: calc(100vw - 40px) !important;
+  max-height: 550px !important;
+  background: #1e293b !important;
+  border-radius: 10px !important;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: #f1f5f9 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  user-select: text !important;
+  z-index: 2147483647 !important;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Show state - triggered by .sd-show class */
+#sd-result-box.sd-show {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Content fade-in to prevent flash */
+#sd-result-box .sd-panel-content {
+  opacity: 0.7;
+  transition: opacity 0.25s ease-in !important;
+}
+
+#sd-result-box.sd-show .sd-panel-content {
+  opacity: 1;
+}
+
+/* Hiding keyframe animation since we use transitions now */
+@keyframes sd-panel-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   CLOSE BUTTON
+   ============================================================ */
+
+.sd-close-btn {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  width: 26px !important;
+  height: 26px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #cbd5e1 !important;
+  transition: all 0.2s ease !important;
+  z-index: 10 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+.sd-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #f1f5f9 !important;
+  transform: scale(1.1) !important;
+}
+
+.sd-close-btn:active {
+  transform: scale(0.95) !important;
+}
+
+/* ============================================================
+   PANEL CONTENT
+   ============================================================ */
+
+.sd-panel-content {
+  padding: 18px !important;
+  max-height: 530px !important;
+  overflow-y: auto !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: #475569 transparent !important;
+}
+
+.sd-panel-content::-webkit-scrollbar {
+  width: 5px !important;
+}
+
+.sd-panel-content::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.sd-panel-content::-webkit-scrollbar-thumb {
+  background: #475569 !important;
+  border-radius: 3px !important;
+}
+
+/* ============================================================
+   DICTIONARY MODE - Single Word
+   ============================================================ */
+
+.sd-headword {
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  color: #f8fafc !important;
+  margin-bottom: 8px !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.3px !important;
+}
+
+/* IPA - MUST use Arial font */
+.sd-ipa {
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 15px !important;
+  color: #94a3b8 !important;
+  font-weight: 400 !important;
+  background: #334155 !important;
+  display: inline-block !important;
+  padding: 4px 10px !important;
+  border-radius: 5px !important;
+  border: 1px solid #475569 !important;
+  margin-bottom: 8px !important;
+}
+
+.sd-pos {
+  display: inline-block !important;
+  font-style: italic !important;
+  color: #6ee7b7 !important;
+  font-weight: 500 !important;
+  background: rgba(110, 231, 183, 0.1) !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(110, 231, 183, 0.3) !important;
+  font-size: 12px !important;
+  text-transform: lowercase !important;
+}
+
+.sd-divider {
+  margin: 14px 0 !important;
+  border-top: 1px solid #334155 !important;
+}
+
+.sd-definitions {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  margin-bottom: 12px !important;
+}
+
+.sd-def {
+  padding: 10px !important;
+  background: #334155 !important;
+  border-radius: 6px !important;
+  border-left: 3px solid #3b82f6 !important;
+  transition: background 0.2s ease !important;
+}
+
+.sd-def:hover {
+  background: #475569 !important;
+}
+
+.sd-def-num {
+  display: inline-block !important;
+  font-weight: 600 !important;
+  color: #60a5fa !important;
+  margin-right: 6px !important;
+  min-width: 18px !important;
+  font-size: 12px !important;
+}
+
+.sd-def-text {
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  color: #e2e8f0 !important;
+}
+
+/* ============================================================
+   TRANSLATION MODE - Multi-word Phrase
+   ============================================================ */
+
+.sd-trans-label {
+  font-size: 12px !important;
+  color: #94a3b8 !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 10px !important;
+}
+
+.sd-trans-text {
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+  color: #f1f5f9 !important;
+  padding: 12px !important;
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 100%) !important;
+  border-radius: 6px !important;
+  border: 1px solid #059669 !important;
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
+}
+
+/* ============================================================
+   NOT FOUND & SUGGESTIONS
+   ============================================================ */
+
+.sd-not-found {
+  text-align: center !important;
+  padding: 16px 0 !important;
+}
+
+.sd-not-found-title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #f87171 !important;
+  margin-bottom: 10px !important;
+  padding: 10px !important;
+  background: rgba(248, 113, 113, 0.1) !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(248, 113, 113, 0.3) !important;
+}
+
+.sd-not-found-text {
+  font-size: 13px !important;
+  color: #94a3b8 !important;
+  margin-bottom: 12px !important;
+}
+
+.sd-suggestions {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  justify-content: center !important;
+  padding: 6px 0 !important;
+}
+
+.sd-suggest-btn {
+  background: #334155 !important;
+  border: 1px solid #475569 !important;
+  border-radius: 5px !important;
+  padding: 7px 14px !important;
+  font-size: 12px !important;
+  color: #e2e8f0 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  font-weight: 500 !important;
+  font-family: inherit !important;
+}
+
+.sd-suggest-btn:hover {
+  background: #3b82f6 !important;
+  color: #ffffff !important;
+  border-color: #3b82f6 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 8px rgba(59, 130, 246, 0.3) !important;
+}
+
+.sd-suggest-btn:active {
+  transform: translateY(0) !important;
+}
+
+/* ============================================================
+   ERROR STATE
+   ============================================================ */
+
+.sd-error {
+  text-align: center !important;
+  padding: 20px 16px !important;
+}
+
+.sd-error-icon {
+  font-size: 32px !important;
+  margin-bottom: 10px !important;
+}
+
+.sd-error-title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #f87171 !important;
+  margin-bottom: 10px !important;
+}
+
+.sd-error-text {
+  font-size: 13px !important;
+  color: #fca5a5 !important;
+  line-height: 1.6 !important;
+  background: rgba(248, 113, 113, 0.1) !important;
+  padding: 10px !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(248, 113, 113, 0.3) !important;
+  margin-bottom: 10px !important;
+}
+
+.sd-error-hint {
+  font-size: 12px !important;
+  color: #94a3b8 !important;
+  font-style: italic !important;
+}
+
+/* ============================================================
+   LOADING STATE
+   ============================================================ */
+
+.sd-loading {
+  font-size: 13px !important;
+  color: #94a3b8 !important;
+  text-align: center !important;
+  padding: 28px 16px !important;
+  position: relative !important;
+  opacity: 0.8;
+  animation: sd-loading-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes sd-loading-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.sd-loading::after {
+  content: '' !important;
+  display: inline-block !important;
+  width: 16px !important;
+  height: 16px !important;
+  border: 2px solid #475569 !important;
+  border-top-color: #3b82f6 !important;
+  border-radius: 50% !important;
+  animation: sd-spin 0.8s linear infinite !important;
+  margin-left: 8px !important;
+  vertical-align: middle !important;
+}
+
+@keyframes sd-spin {
+  to {
+    transform: rotate(360deg) !important;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 480px) {
+  #sd-result-box {
+    width: calc(100vw - 30px) !important;
+    top: 10px !important;
+    right: 10px !important;
+    max-height: 70vh !important;
+  }
+
+  .sd-headword {
+    font-size: 20px !important;
+  }
+
+  .sd-panel-content {
+    padding: 14px !important;
+  }
+
+  .floating-translate-btn {
+    padding: 7px 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* ============================================================
+   HIGH CONTRAST MODE
+   ============================================================ */
+
+@media (prefers-contrast: high) {
+  #sd-result-box {
+    border: 2px solid #f1f5f9 !important;
+  }
+
+  .sd-def {
+    border-left-width: 4px !important;
+  }
+
+  .floating-translate-btn {
+    border: 2px solid #ffffff !important;
+  }
+
+  .sd-ipa {
+    border: 2px solid #f1f5f9 !important;
+  }
+}
